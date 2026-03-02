@@ -1,9 +1,16 @@
 'use client'
 
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Zap, Globe, TrendingUp } from 'lucide-react'
 import { SplineScene } from "@/components/ui/splite";
 import { Spotlight } from "@/components/ui/spotlight";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import ProjectBadge from "@/components/ui/project-badge";
+
+const stats = [
+    { id: 'stat-1', name: '+Eficiencia operativa', icon: Zap },
+    { id: 'stat-2', name: '+Adaptable a cualquier industria', icon: Globe },
+    { id: 'stat-3', name: '+Impacto en semanas', icon: TrendingUp },
+];
 
 export function SplineSceneBasic() {
     return (
@@ -23,32 +30,30 @@ export function SplineSceneBasic() {
             <div className="relative z-[2] min-h-screen flex flex-col md:flex-row">
 
                 {/* ─── Left: Copy ─── */}
-                <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-32 pb-20 md:pt-0">
+                <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-24 pt-24 pb-8 md:pt-16 lg:pt-24">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20 mb-6">
-                            <div className="w-2 h-2 rounded-full bg-accent-blue animate-pulse" />
-                            <span className="text-accent-blue text-xs font-bold tracking-widest uppercase">
-                                Automatización Operativa con IA
-                            </span>
-                        </div>
-
-                        <h1 className="text-[42px] md:text-[60px] lg:text-[72px] font-black leading-[1.0] tracking-[-2px] mb-8 text-white">
-                            Tu empresa
+                        <h1 className="text-[32px] md:text-[48px] lg:text-[60px] font-light leading-[1.05] tracking-tight mb-4 text-white">
+                            No desarrollamos software.
                             <br />
-                            <span className="text-neutral-400 font-light">pierde dinero</span>
-                            <br />
-                            todos los días.
+                            <span className="font-bold text-accent-blue inline-block mt-1">Hacemos ingeniería de operaciones.</span>
                         </h1>
 
-                        <p className="text-lg md:text-xl text-neutral-300 mb-12 max-w-lg leading-relaxed">
-                            Por procesos que deberían estar automatizados. Construimos aplicaciones con IA que eliminan fricciones operativas en semanas, no meses.
-                        </p>
+                        <div className="space-y-2 mb-6">
+                            <div className="flex items-center gap-3 text-base md:text-lg text-neutral-300 font-medium">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent-blue" />
+                                Velocidad de implementación
+                            </div>
+                            <div className="flex items-center gap-3 text-base md:text-lg text-neutral-300 font-medium">
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent-blue" />
+                                Impacto instantáneo sobre la operación
+                            </div>
+                        </div>
 
-                        <div className="flex flex-col sm:flex-row gap-4 items-start">
+                        <div className="flex items-start mb-10">
                             <motion.a
                                 href="#contacto"
                                 whileHover={{ scale: 1.05 }}
@@ -61,40 +66,38 @@ export function SplineSceneBasic() {
                                     ]
                                 }}
                                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                className="flex items-center justify-center gap-2.5 bg-accent-blue text-white py-5 px-10 rounded-full text-lg font-bold border-2 border-white/10 shadow-2xl cursor-pointer"
+                                className="flex items-center justify-center gap-2.5 bg-accent-blue text-white py-4 px-10 rounded-full text-base font-bold border-2 border-white/10 shadow-2xl cursor-pointer"
                             >
                                 Solicita tu Demo
                                 <ArrowRight className="w-5 h-5" />
                             </motion.a>
-                            <motion.a
-                                href="#problema"
-                                whileHover={{ scale: 1.02 }}
-                                className="flex items-center gap-2 text-neutral-400 hover:text-white py-5 px-4 rounded-full text-lg font-medium transition-colors cursor-pointer"
-                            >
-                                Ver el problema →
-                            </motion.a>
                         </div>
 
-                        {/* Stats */}
-                        <div className="flex gap-8 mt-16 pt-12 border-t border-white/10">
-                            <div>
-                                <div className="text-4xl font-black text-white">+15hs</div>
-                                <div className="text-sm text-neutral-400 font-medium mt-1">Semanales ahorradas</div>
-                            </div>
-                            <div>
-                                <div className="text-4xl font-black text-white">10+</div>
-                                <div className="text-sm text-neutral-400 font-medium mt-1">Industrias impactadas</div>
-                            </div>
-                            <div>
-                                <div className="text-4xl font-black text-accent-blue">Semanas</div>
-                                <div className="text-sm text-neutral-400 font-medium mt-1">No meses</div>
-                            </div>
-                        </div>
+                        {/* Stats as Badges */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex flex-wrap gap-3 mt-8 pt-8 border-t border-white/10"
+                        >
+                            <AnimatePresence>
+                                {stats.map((stat, i) => (
+                                    <motion.div
+                                        key={stat.id}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.6 + i * 0.1 }}
+                                    >
+                                        <ProjectBadge project={stat} href="#contacto" />
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
                     </motion.div>
                 </div>
 
                 {/* ─── Right: Robot ─── */}
-                <div className="flex-1 relative min-h-[50vh] md:min-h-screen pointer-events-auto">
+                <div className="flex-1 relative min-h-[40vh] md:min-h-screen pointer-events-auto">
                     <SplineScene
                         scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                         className="w-full h-full absolute inset-0"

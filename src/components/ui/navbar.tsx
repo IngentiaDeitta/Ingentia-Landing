@@ -1,10 +1,10 @@
 'use client'
 import Link from 'next/link'
 import { Equal, X } from 'lucide-react'
-import { Button } from '@/components/ui/liquid-glass-button'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import { KaizenButton } from '@/components/ui/conversational-agent'
 
 const menuItems = [
     { name: 'Problema', href: '#problema' },
@@ -24,25 +24,27 @@ export const Header = () => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
+
     return (
         <header>
             <nav
                 data-state={menuState && 'active'}
                 className="fixed left-0 w-full z-20 px-2">
-                <div className={cn('mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', isScrolled && 'bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5')}>
+                <div className={cn('mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', isScrolled && 'bg-black/80 max-w-4xl rounded-2xl border border-white/10 backdrop-blur-lg lg:px-5')}>
                     <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 py-2">
                         <div className="flex w-full justify-between lg:w-auto">
                             <Link
                                 href="/"
                                 aria-label="home"
                                 className="flex gap-2 items-center">
-                                <div className="relative h-8 w-36">
+                                <div className="relative h-10 w-44">
                                     <Image
-                                        src="/Logo Negro_T.png"
+                                        src="/logo-white.svg"
                                         alt="Ingentia Logo"
                                         fill
                                         className="object-contain object-left"
                                         priority
+                                        onError={(e) => { (e.target as HTMLImageElement).src = '/logo-light.png'; }}
                                     />
                                 </div>
                             </Link>
@@ -62,7 +64,7 @@ export const Header = () => {
                                     <li key={index}>
                                         <Link
                                             href={item.href}
-                                            className="text-muted-foreground hover:text-accent-foreground block duration-150">
+                                            className="text-white hover:text-white/80 block duration-150">
                                             <span>{item.name}</span>
                                         </Link>
                                     </li>
@@ -85,32 +87,9 @@ export const Header = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
-
-                                <Button
-                                    asChild
-                                    variant="outline"
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="#contacto">
-                                        <span>Login</span>
-                                    </Link>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="#contacto">
-                                        <span>Sign Up</span>
-                                    </Link>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <Link href="#contacto">
-                                        <span>Hablar con un Ingeniero</span>
-                                    </Link>
-                                </Button>
+                                <KaizenButton
+                                    className="flex items-center justify-center gap-2 text-white bg-accent-blue hover:bg-blue-600 text-sm font-semibold px-5 py-2.5 rounded-full transition-colors shadow-lg shadow-blue-900/30 whitespace-nowrap cursor-pointer"
+                                />
                             </div>
                         </div>
                     </div>
