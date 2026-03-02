@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { SplineSceneBasic } from "@/components/ui/hero-demo";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { FloatingNav } from "@/components/ui/floating-navbar";
+import { Header } from "@/components/ui/navbar";
 import { SplineScene } from "@/components/ui/splite";
 import Image from "next/image";
 
@@ -59,27 +59,103 @@ const Hero = () => {
 // ─────────────────────────────────────────
 // Section 2: Problem
 // ─────────────────────────────────────────
+import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import {
+  FileText,
+  MousePointer2,
+  Globe,
+  Calendar,
+  Bell,
+  BarChart3,
+  PieChart,
+  Rocket
+} from "lucide-react";
+
 const ProblemSection = () => {
   const pains = [
-    "Decisiones \"a ojo\" por falta de datos",
-    "Clientes que esperan días para recibir una cotización",
-    "Inventario desactualizado = ventas perdidas",
-    "Todo depende del \"que sabe\"",
-    "Me demanda mucho tiempo saber cómo le va a mi empresa",
-    "Reportes manuales en Excel",
-    "Seguimiento de clientes por WhatsApp",
-    "Carga administrativa innecesaria",
+    {
+      Icon: BarChart3,
+      name: "Decisiones \"a ojo\"",
+      description: "La falta de datos centralizados nubla el crecimiento de tu empresa.",
+      href: "#contacto",
+      cta: "Ver solución",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />,
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+    },
+    {
+      Icon: Calendar,
+      name: "Cotizaciones lentas",
+      description: "Clientes que esperan días para recibir un presupuesto.",
+      href: "#contacto",
+      cta: "Automatizar",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />,
+      className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+    },
+    {
+      Icon: Rocket,
+      name: "Fugas de Stock",
+      description: "Inventario desactualizado = ventas perdidas y capital inmovilizado.",
+      href: "#contacto",
+      cta: "Optimizar",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />,
+      className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2",
+    },
+    {
+      Icon: Globe,
+      name: "Dependencia del \"experto\"",
+      description: "Tu operación se frena cuando las personas clave no están disponibles.",
+      href: "#contacto",
+      cta: "Sistematizar",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent" />,
+      className: "lg:col-start-2 lg:col-end-4 lg:row-start-2 lg:row-end-3",
+    },
+    {
+      Icon: PieChart,
+      name: "Pérdida de Tiempo",
+      description: "Horas invertidas solo en saber cómo le va a tu empresa hoy.",
+      href: "#contacto",
+      cta: "Panel de control",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 to-transparent" />,
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+    },
+    {
+      Icon: FileText,
+      name: "Esclavos del Excel",
+      description: "Reportes manuales que nacen viejos y con errores humanos.",
+      href: "#contacto",
+      cta: "Eliminar Excel",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent" />,
+      className: "lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-4",
+    },
+    {
+      Icon: MousePointer2,
+      name: "Caos en WhatsApp",
+      description: "Seguimiento de clientes perdido en chats informales.",
+      href: "#contacto",
+      cta: "CRM Inteligente",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent" />,
+      className: "lg:col-start-3 lg:col-end-4 lg:row-start-3 lg:row-end-4",
+    },
+    {
+      Icon: Bell,
+      name: "Carga Administrativa",
+      description: "Tareas repetitivas que consumen el margen de tu negocio.",
+      href: "#contacto",
+      cta: "Liberar equipo",
+      background: <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent" />,
+      className: "lg:col-start-1 lg:col-end-4 lg:row-start-4 lg:row-end-5",
+    },
   ];
 
   return (
-    <section id="problema" className="py-40 bg-card transition-colors duration-500 min-h-screen flex items-center">
+    <section id="problema" className="py-40 bg-card transition-colors duration-500">
       <div className="apple-container w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1] text-balance">
             No necesitas más software.{" "}
@@ -90,19 +166,13 @@ const ProblemSection = () => {
             Estos son los dolores que frenan la operación de las pymes hoy:
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-            {pains.map((item, i) => (
-              <div key={i} className="relative rounded-2xl p-0.5">
-                <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={2} />
-                <div className="relative flex gap-4 items-start bg-black/40 dark:bg-white/10 backdrop-blur-xl p-6 rounded-[14px] border border-black/20 dark:border-white/20 transition-all h-full shadow-2xl group hover:border-accent-blue/50">
-                  <div className="w-2.5 h-2.5 rounded-full bg-accent-blue flex-shrink-0 mt-2 shadow-[0_0_10px_rgba(0,132,255,0.8)]" />
-                  <span className="text-base font-semibold text-foreground group-hover:text-accent-blue transition-colors leading-snug">{item}</span>
-                </div>
-              </div>
+          <BentoGrid className="lg:grid-rows-4">
+            {pains.map((feature) => (
+              <BentoCard key={feature.name} {...feature} />
             ))}
-          </div>
+          </BentoGrid>
 
-          <div className="pt-10 border-t border-border/40">
+          <div className="pt-20 mt-20 border-t border-border/40 text-center">
             <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground/40 italic text-balance">
               "Cuando los procesos no están diseñados, las personas compensan."
             </h3>
@@ -490,6 +560,7 @@ const Footer = () => {
 // ─────────────────────────────────────────
 // Root
 // ─────────────────────────────────────────
+
 export default function Home() {
   const navItems = [
     { name: "Problema", link: "#problema" },
@@ -501,13 +572,12 @@ export default function Home() {
 
   return (
     <main className="transition-colors duration-500">
-      <FloatingNav navItems={navItems} />
+      <Header />
       <Hero />
       <ProblemSection />
       <ValuePropSection />
       <ProductsSection />
       <MethodologySection />
-      <TrustSection />
       <CTASection />
       <Footer />
     </main>

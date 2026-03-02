@@ -29,9 +29,12 @@ export function SplineSceneBasic() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <p className="text-accent-blue text-sm font-bold tracking-[0.2em] uppercase mb-6">
-                            Automatización Operativa con IA
-                        </p>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-blue/10 border border-accent-blue/20 mb-6">
+                            <div className="w-2 h-2 rounded-full bg-accent-blue animate-pulse" />
+                            <span className="text-accent-blue text-xs font-bold tracking-widest uppercase">
+                                Automatización Operativa con IA
+                            </span>
+                        </div>
 
                         <h1 className="text-[42px] md:text-[60px] lg:text-[72px] font-black leading-[1.0] tracking-[-2px] mb-8 text-white">
                             Tu empresa

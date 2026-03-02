@@ -68,20 +68,12 @@ export const FloatingNav = ({
                     className
                 )}
             >
-                <Link href="/" className="flex items-center gap-2 relative h-8 w-32">
-                    {/* Logo automatically switches based on theme */}
+                <Link href="/" className="flex items-center gap-2 relative h-10 w-40">
                     <Image
                         src={theme === "dark" ? "/Logo Negro_T.png" : "/logo-light.png"}
-                        onError={(e) => {
-                            // Fallback to logo-dark.png if Logo Negro_T.png is not found
-                            const target = e.target as HTMLImageElement;
-                            if (theme === "dark" && !target.src.includes("logo-dark.png")) {
-                                target.src = "/logo-dark.png";
-                            }
-                        }}
                         alt="Ingentia Logo"
                         fill
-                        className="object-contain object-left"
+                        className="object-contain object-left scale-125"
                         priority
                     />
                 </Link>
