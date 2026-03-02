@@ -64,14 +64,13 @@ export function ConversationalAgent() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+                        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
                     >
                         <motion.div
-                            initial={{ scale: 0.85, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.85, opacity: 0, y: 20 }}
-                            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                            className="relative w-full max-w-sm mx-4 bg-[#0a0a0f] border border-white/10 rounded-3xl p-8 flex flex-col items-center gap-6 shadow-2xl"
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="w-full max-w-sm bg-[#0a0a0f] border border-white/10 rounded-[2rem] p-8 flex flex-col items-center gap-6 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] relative"
                         >
                             {/* Close */}
                             <button
@@ -171,6 +170,7 @@ function KaizenModal({ onClose }: { onClose: () => void }) {
     });
 
     React.useEffect(() => {
+        document.body.style.overflow = 'hidden';
         (async () => {
             try {
                 await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -179,6 +179,9 @@ function KaizenModal({ onClose }: { onClose: () => void }) {
                 onClose();
             }
         })();
+        return () => {
+            document.body.style.overflow = '';
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -190,15 +193,14 @@ function KaizenModal({ onClose }: { onClose: () => void }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+                className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
                 onClick={(e) => { if (e.target === e.currentTarget) endCall(); }}
             >
                 <motion.div
-                    initial={{ scale: 0.85, opacity: 0, y: 20 }}
-                    animate={{ scale: 1, opacity: 1, y: 0 }}
-                    exit={{ scale: 0.85, opacity: 0, y: 20 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                    className="relative w-full max-w-sm mx-4 bg-[#0a0a0f] border border-white/10 rounded-3xl p-8 flex flex-col items-center gap-6 shadow-2xl"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    className="w-full max-w-sm bg-[#0a0a0f] border border-white/10 rounded-[2rem] p-8 flex flex-col items-center gap-6 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] relative"
                 >
                     <button onClick={endCall} className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
                         <PhoneOff className="w-5 h-5" />

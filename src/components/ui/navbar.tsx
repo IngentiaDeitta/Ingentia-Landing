@@ -72,14 +72,15 @@ export const Header = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                            <div className="lg:hidden">
-                                <ul className="space-y-6 text-base">
+                        <div className="bg-black/95 backdrop-blur-xl in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-8 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:lg:bg-transparent">
+                            <div className="lg:hidden w-full">
+                                <ul className="space-y-6 text-lg">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
+                                                onClick={() => setMenuState(false)}
+                                                className="text-white/90 hover:text-white block duration-150 font-medium">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
@@ -88,7 +89,7 @@ export const Header = () => {
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
                                 <KaizenButton
-                                    className="flex items-center justify-center gap-2 text-white bg-accent-blue hover:bg-blue-600 text-sm font-semibold px-5 py-2.5 rounded-full transition-colors shadow-lg shadow-blue-900/30 whitespace-nowrap cursor-pointer"
+                                    className="flex items-center justify-center gap-2 text-white bg-accent-blue hover:bg-blue-600 text-sm font-semibold px-6 py-3 rounded-full transition-colors shadow-lg shadow-blue-900/30 whitespace-nowrap cursor-pointer"
                                 />
                             </div>
                         </div>
