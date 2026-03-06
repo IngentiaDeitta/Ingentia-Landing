@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, X, FileText, BarChart3, Bell } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SplineSceneBasic } from "@/components/ui/hero-demo";
@@ -14,6 +14,8 @@ import { TransitionSection } from "@/components/ui/transition-section";
 import TextReveal from "@/components/ui/text-reveal";
 import TextBlockAnimation from "@/components/ui/text-block-animation";
 import { Ripple } from "@/components/ui/material-design-3-ripple";
+import { submitLead } from "./actions";
+import { CheckCircle2 } from "lucide-react";
 
 // ─────────────────────────────────────────
 // Hero Scroll Demo (Dashboard)
@@ -395,6 +397,25 @@ const ArchitectureSection = () => {
 // Section 7: Final CTA
 // ─────────────────────────────────────────
 const CTASection = () => {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    const formData = new FormData(e.currentTarget);
+    const result = await submitLead(formData);
+
+    if (result.error) {
+      setStatus("error");
+      setErrorMessage(result.error);
+    } else {
+      setStatus("success");
+    }
+  };
+
   return (
     <section id="contacto" className="py-40 bg-foreground text-background transition-colors duration-500 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-800 dark:from-white dark:via-neutral-100 dark:to-neutral-200" />
@@ -418,29 +439,64 @@ const CTASection = () => {
 
         <div className="relative rounded-[2.1rem] p-0.5 max-w-4xl mx-auto">
           <GlowingEffect spread={60} glow proximity={100} inactiveZone={0.01} borderWidth={3} />
-          <motion.form
-            className="relative grid gap-6 bg-neutral-900 dark:bg-white p-8 md:p-12 rounded-[2rem] border border-white/10 dark:border-black/10"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="grid md:grid-cols-2 gap-6">
-              <input type="text" placeholder="Nombre completo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black" required />
-              <input type="email" placeholder="Correo corporativo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black" required />
-            </div>
-            <input type="text" placeholder="Empresa y cargo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black mt-4" required />
-            <textarea placeholder="¿Cuál es tu principal cuello de botella operativo hoy?" rows={3} className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black resize-none mt-4" required />
-            <motion.button
-              type="submit"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-accent-blue text-white px-10 py-6 text-xl font-black rounded-full hover:bg-blue-400 transition-all shadow-xl mt-8 flex items-center justify-center gap-3"
-            >
-              ¡Solicitar Consultoría Estratégica!
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
-          </motion.form>
+
+          <AnimatePresence mode="wait">
+            {status === "success" ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="relative bg-neutral-900 dark:bg-white p-12 md:p-20 rounded-[2rem] border border-white/10 dark:border-black/10 text-center flex flex-col items-center gap-6"
+              >
+                <div className="w-20 h-20 bg-accent-blue/20 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="w-10 h-10 text-accent-blue" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-black text-white dark:text-black mt-4">
+                  ¡Mensaje recibido!
+                </h3>
+                <p className="text-xl text-neutral-400 dark:text-neutral-600 max-w-md">
+                  Un consultor senior de Ingentia analizará tu caso y se pondrá en contacto contigo en las próximas 24 horas.
+                </p>
+                <button
+                  onClick={() => setStatus("idle")}
+                  className="mt-8 text-accent-blue font-bold hover:underline"
+                >
+                  Enviar otro mensaje
+                </button>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="relative grid gap-6 bg-neutral-900 dark:bg-white p-8 md:p-12 rounded-[2rem] border border-white/10 dark:border-black/10"
+              >
+                <div className="grid md:grid-cols-2 gap-6">
+                  <input name="fullName" type="text" placeholder="Nombre completo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black" required />
+                  <input name="email" type="email" placeholder="Correo corporativo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black" required />
+                </div>
+                <input name="companyRole" type="text" placeholder="Empresa y cargo" className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black mt-4" required />
+                <textarea name="bottleneck" placeholder="¿Cuál es tu principal cuello de botella operativo hoy?" rows={3} className="bg-transparent border-b border-white/20 dark:border-black/20 pb-4 focus:outline-none focus:border-accent-blue transition-colors text-lg placeholder:text-neutral-500 text-white dark:text-black resize-none mt-4" required />
+
+                {status === "error" && (
+                  <p className="text-red-500 text-sm font-medium">{errorMessage}</p>
+                )}
+
+                <motion.button
+                  type="submit"
+                  disabled={status === "loading"}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-accent-blue text-white px-10 py-6 text-xl font-black rounded-full hover:bg-blue-400 transition-all shadow-xl mt-8 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {status === "loading" ? "Enviando..." : "¡Solicitar Consultoría Estratégica!"}
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
