@@ -2,10 +2,11 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, Check, X, FileText, BarChart3, Bell } from "lucide-react";
+import { ArrowRight, Check, X, FileText, BarChart3, Bell, Clock, Eye, Users, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SplineSceneBasic } from "@/components/ui/hero-demo";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Header } from "@/components/ui/navbar";
 import { SplineScene } from "@/components/ui/splite";
 import Image from "next/image";
@@ -21,43 +22,31 @@ import { CheckCircle2 } from "lucide-react";
 // ─────────────────────────────────────────
 function HeroScrollDemo() {
   return (
-    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 pb-24">
-      <div className="apple-container text-center py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <h2 className="text-4xl md:text-6xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
-            Tu operación,
-          </h2>
-          <span className="text-5xl md:text-8xl font-black leading-none text-accent-blue block mb-8">
-            Bajo Control.
-          </span>
-          <p className="text-xl md:text-2xl text-muted font-light max-w-2xl mx-auto">
-            Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
-          </p>
-        </motion.div>
-      </div>
-      <div className="apple-container">
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.97 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.2 }}
-          className="relative rounded-3xl overflow-hidden border border-border/20 shadow-2xl"
-        >
-          <Image
-            src={`/dashboard-new.png`}
-            alt="Panel de control operativo de Ingentia"
-            height={720}
-            width={1400}
-            className="w-full h-auto object-cover object-top"
-            draggable={false}
-          />
-        </motion.div>
-      </div>
+    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 -mt-[10vh]">
+      <ContainerScroll
+        titleComponent={
+          <>
+            <h2 className="text-4xl font-black text-foreground text-balance uppercase tracking-widest">
+              Tu operación, <br />
+              <span className="text-4xl md:text-[6rem] font-black mt-1 leading-none text-accent-blue">
+                Bajo Control.
+              </span>
+            </h2>
+            <p className="text-lg md:text-xl text-muted font-light max-w-2xl mx-auto mt-4">
+              Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
+            </p>
+          </>
+        }
+      >
+        <Image
+          src={`/dashboard-new.png`}
+          alt="Panel de control operativo de Ingentia"
+          height={720}
+          width={1400}
+          className="mx-auto rounded-2xl object-cover h-full object-top border border-border/20 shadow-2xl"
+          draggable={false}
+        />
+      </ContainerScroll>
     </div>
   );
 }
@@ -83,34 +72,38 @@ const Hero = () => {
 const ProblemSection = () => {
   const pains = [
     {
-      Icon: BarChart3,
+      Icon: Clock,
       name: "Cambio constante de contexto",
       description: "Pasás de responder WhatsApp a revisar una planilla, a atender a un proveedor. Cada cambio de tarea cuesta 23 minutos de foco perdido.",
-      color: "text-blue-500",
+      color: "text-blue-600",
+      iconBg: "bg-blue-100 border-blue-200",
       bg: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10",
       className: "md:col-span-1 md:row-span-2 min-h-[300px]"
     },
     {
-      Icon: BarChart3,
+      Icon: Eye,
       name: "Decisiones sin datos reales",
-      description: "Tomás decisiones críticas basadas en sensaciones, no en números. La infomación llega tarde, incompleta o desactualizada.",
-      color: "text-amber-500",
+      description: "Tomás decisiones críticas basadas en sensaciones, no en números. La información llega tarde, incompleta o desactualizada.",
+      color: "text-amber-600",
+      iconBg: "bg-amber-100 border-amber-200",
       bg: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10",
       className: "md:col-span-1 md:row-span-1"
     },
     {
-      Icon: Bell,
+      Icon: Users,
       name: "Tu equipo trabaja para el proceso",
       description: "El 40% de las horas de tu equipo se van en tareas que no crean valor: cargar datos, exportar reportes, copiar información de un lugar a otro.",
-      color: "text-cyan-500",
+      color: "text-cyan-600",
+      iconBg: "bg-cyan-100 border-cyan-200",
       bg: "bg-cyan-500/5 hover:bg-cyan-500/10 border-cyan-500/10",
       className: "md:col-span-1 md:row-span-1"
     },
     {
-      Icon: FileText,
+      Icon: TrendingUp,
       name: "Procesos ineficientes que frenan el crecimiento",
       description: "No es falta de personal ni de voluntad. Es la falta de sistemas que trabajen por vos mientras te concentrás en hacer crecer tu negocio.",
-      color: "text-rose-500",
+      color: "text-rose-600",
+      iconBg: "bg-rose-100 border-rose-200",
       bg: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10",
       className: "md:col-span-2 md:row-span-1"
     }
@@ -156,7 +149,7 @@ const ProblemSection = () => {
               >
                 <div className="p-8 h-full flex flex-col relative z-10 pointer-events-none">
                   <div>
-                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border bg-white/50 dark:bg-black/50 shadow-sm", pain.bg)}>
+                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border shadow-sm", pain.iconBg)}>
                       <pain.Icon className={cn("w-6 h-6", pain.color)} />
                     </div>
                     <h3 className="text-2xl font-black mb-3 text-foreground tracking-tight italic">
@@ -263,7 +256,7 @@ const MethodologySection = () => {
       content: (
         <div className="grid grid-cols-2 gap-12 mt-12">
           {[
-            { stat: "+15hs", label: "Ahorro en tareas repetitivas" },
+            { stat: "+Tiempo", label: "Ahorro en tareas repetitivas" },
             { stat: "99%", label: "Menos errores humanos" },
             { stat: "Real", label: "Decisiones en tiempo real" },
             { stat: "10x", label: "Oportunidad de escalar tus rendimientos" },
