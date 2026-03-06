@@ -44,7 +44,7 @@ export function SplineSceneBasic() {
 
                         <div className="space-y-2 mb-6 text-balance max-w-xl">
                             <p className="text-lg md:text-xl text-neutral-300 font-light leading-relaxed">
-                                De procesos rotos a sistemas inteligentes. Optimizamos tu operación con arquitecturas de IA diseñadas para escalar, no para parchear.
+                                De procesos ineficientes a sistemas inteligentes. Optimizamos tu operación con arquitecturas de automatización diseñadas para escalar, no para parchear.
                             </p>
                         </div>
 

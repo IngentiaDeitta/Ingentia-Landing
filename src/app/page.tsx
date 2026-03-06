@@ -6,7 +6,6 @@ import { ArrowRight, Check, X, FileText, BarChart3, Bell } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SplineSceneBasic } from "@/components/ui/hero-demo";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Header } from "@/components/ui/navbar";
 import { SplineScene } from "@/components/ui/splite";
 import Image from "next/image";
@@ -22,28 +21,43 @@ import { CheckCircle2 } from "lucide-react";
 // ─────────────────────────────────────────
 function HeroScrollDemo() {
   return (
-    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 -mt-[10vh]">
-      <ContainerScroll
-        titleComponent={
-          <>
-            <h2 className="text-4xl font-black text-foreground text-balance uppercase tracking-widest">
-              Visualiza tu operación con <br />
-              <span className="text-4xl md:text-[6rem] font-black mt-1 leading-none text-accent-blue">
-                Control Total
-              </span>
-            </h2>
-          </>
-        }
-      >
-        <Image
-          src={`/dashboard.png`}
-          alt="Dashboard de control operativo"
-          height={720}
-          width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top border border-border/20 shadow-2xl"
-          draggable={false}
-        />
-      </ContainerScroll>
+    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 pb-24">
+      <div className="apple-container text-center py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-4xl md:text-6xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
+            Tu operación,
+          </h2>
+          <span className="text-5xl md:text-8xl font-black leading-none text-accent-blue block mb-8">
+            Bajo Control.
+          </span>
+          <p className="text-xl md:text-2xl text-muted font-light max-w-2xl mx-auto">
+            Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
+          </p>
+        </motion.div>
+      </div>
+      <div className="apple-container">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative rounded-3xl overflow-hidden border border-border/20 shadow-2xl"
+        >
+          <Image
+            src={`/dashboard-new.png`}
+            alt="Panel de control operativo de Ingentia"
+            height={720}
+            width={1400}
+            className="w-full h-auto object-cover object-top"
+            draggable={false}
+          />
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -70,32 +84,32 @@ const ProblemSection = () => {
   const pains = [
     {
       Icon: BarChart3,
-      name: "Fuga de datos",
-      description: "15 planillas de Excel que no se hablan entre sí y generan caos informativo.",
+      name: "Cambio constante de contexto",
+      description: "Pasás de responder WhatsApp a revisar una planilla, a atender a un proveedor. Cada cambio de tarea cuesta 23 minutos de foco perdido.",
       color: "text-blue-500",
       bg: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10",
       className: "md:col-span-1 md:row-span-2 min-h-[300px]"
     },
     {
       Icon: BarChart3,
-      name: "Ceguera de gestión",
-      description: "Tomas decisiones \"a ojo\" por falta de datos reales y actualizados.",
+      name: "Decisiones sin datos reales",
+      description: "Tomás decisiones críticas basadas en sensaciones, no en números. La infomación llega tarde, incompleta o desactualizada.",
       color: "text-amber-500",
       bg: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10",
       className: "md:col-span-1 md:row-span-1"
     },
     {
       Icon: Bell,
-      name: "Desperdicio de talento",
-      description: "Tu equipo pierde el 40% del día en carga administrativa.",
+      name: "Tu equipo trabaja para el proceso",
+      description: "El 40% de las horas de tu equipo se van en tareas que no crean valor: cargar datos, exportar reportes, copiar información de un lugar a otro.",
       color: "text-cyan-500",
       bg: "bg-cyan-500/5 hover:bg-cyan-500/10 border-cyan-500/10",
       className: "md:col-span-1 md:row-span-1"
     },
     {
       Icon: FileText,
-      name: "Deuda Operativa",
-      description: "No es falta de personal. Es falta de arquitectura sistémica para escalar.",
+      name: "Procesos ineficientes que frenan el crecimiento",
+      description: "No es falta de personal ni de voluntad. Es la falta de sistemas que trabajen por vos mientras te concentrás en hacer crecer tu negocio.",
       color: "text-rose-500",
       bg: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10",
       className: "md:col-span-2 md:row-span-1"
@@ -113,10 +127,10 @@ const ProblemSection = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">
-              La ingeniería resuelve lo que el software no pudo.
+              ¿Cuántas horas por semana son realmente tuyas?
             </h2>
             <p className="text-xl md:text-2xl text-muted font-light">
-              El 70% de las PyMEs industriales operan con procesos rotos, ocultos en planillas y trabajo manual repetitivo.
+              El 70% de los dueños de pymes pierden más del 60% de su tiempo estratégico en tareas operativas que deberían estar automatizadas.
             </p>
           </motion.div>
         </div>
@@ -140,7 +154,7 @@ const ProblemSection = () => {
                 color={pain.color}
                 opacity={0.15}
               >
-                <div className="p-8 h-full flex flex-col justify-between relative z-10 pointer-events-none">
+                <div className="p-8 h-full flex flex-col relative z-10 pointer-events-none">
                   <div>
                     <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border bg-white/50 dark:bg-black/50 shadow-sm", pain.bg)}>
                       <pain.Icon className={cn("w-6 h-6", pain.color)} />
@@ -151,9 +165,6 @@ const ProblemSection = () => {
                     <p className="text-muted text-lg font-light leading-relaxed">
                       {pain.description}
                     </p>
-                  </div>
-                  <div className="mt-8 flex items-center gap-2 text-sm font-black text-foreground/50 border-t border-foreground/5 pt-4 group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300">
-                    DIAGNÓSTICO TÉCNICO <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </Ripple>
@@ -188,20 +199,20 @@ const ValuePropSection = () => {
             className="text-left"
           >
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-none drop-shadow-2xl">
-              No desarrollamos software.
+              No vendemos software.
               <br />
-              <span className="text-accent-blue drop-shadow-lg">Hacemos ingeniería de operaciones.</span>
+              <span className="text-accent-blue drop-shadow-lg">Eliminamos tu impuesto administrativo.</span>
             </h2>
             <p className="text-xl text-foreground font-light max-w-lg leading-relaxed mb-4">
-              Ofrecemos automatizaciones que generan impacto directo sobre tus ganancias.
+              Somos ingenieros que entienden tu negocio antes de tocar una línea de código. El resultado: horas reales devueltas a tu agenda cada semana.
             </p>
           </motion.div>
 
           <div className="grid gap-6 pointer-events-auto">
             {[
-              { num: "01.", title: "Ingenieros, no solo coders", desc: "Entendemos costos, márgenes y logística. Hablamos tu idioma." },
-              { num: "02.", title: "Tecnología de Frontera", desc: "Implementamos agentes de IA que \"entienden\" tu documentación, no formularios rígidos." },
-              { num: "03.", title: "Sistemas a Medida", desc: "Creamos el guante que calza exacto en la mano de tu negocio." },
+              { num: "01.", title: "Fase 0: Mapeamos tu proceso real", desc: "Antes de programar nada, relevamos tu operación actual y entregamos un diagrama de procesos completo. Sabés exactamente qué va a cambiar y por qué." },
+              { num: "02.", title: "Ingenieros, no sólo programadores", desc: "Hablamos de costos, márgenes, cuellos de botella y tiempos. Somos tu socio operativo, no un proveedor de tecnología." },
+              { num: "03.", title: "Resultados en semanas, no meses", desc: "Cada entregable tiene un impacto medible. Te decimos exactamente cuántas horas mensuales vas a liberar antes de empezar." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -239,16 +250,23 @@ const MethodologySection = () => {
   const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
+  const steps = [
+    { num: "0", title: "Relevamiento (Fase 0)", desc: "Mapeamos tu operación real antes de escribir una sola línea de código. Entregamos un diagrama del proceso actual para que sepas exactamente qué vamos a automatizar y cuánto vas a recuperar." },
+    { num: "1", title: "Arquitectura de la Solución", desc: "Diseñamos la solución técnica a medida: qué herramientas, qué flujos, qué integraciones. Sin plataformas genéricas que después no se adaptan a tu operación." },
+    { num: "2", title: "Desarrollo e Implementación", desc: "Construimos y desplegamos la solución. Tu equipo la adopta con acompañamiento nuestro. El objetivo es impacto visible en las primeras semanas." },
+    { num: "3", title: "Evolución Continua", desc: "Tu negocio cambia; tu sistema también. Evolucionamos la solución junto con tu operación para que siempre esté al servicio de tus objetivos actuales." },
+  ];
+
   const slides = [
     {
       title: "Crecé sin aumentar tu estructura.",
       content: (
         <div className="grid grid-cols-2 gap-12 mt-12">
           {[
-            { stat: "+15hs", label: "Semanales ahorradas" },
+            { stat: "+15hs", label: "Ahorro en tareas repetitivas" },
             { stat: "99%", label: "Menos errores humanos" },
             { stat: "Real", label: "Decisiones en tiempo real" },
-            { stat: "10x", label: "Escalar sin contratar" },
+            { stat: "10x", label: "Oportunidad de escalar tus rendimientos" },
           ].map((s, i) => (
             <div key={i}>
               <div className="text-5xl md:text-7xl font-black text-accent-blue mb-2">{s.stat}</div>
@@ -259,24 +277,20 @@ const MethodologySection = () => {
       ),
     },
     {
-      title: "Cómo trabajamos.",
+      title: "El Camino de Ingeniería.",
       content: (
         <div className="mt-12 relative">
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-border/30 -translate-y-1/2" />
-          <div className="grid grid-cols-4 gap-6 relative z-10">
-            {[
-              "Auditoría de Procesos",
-              "Arquitectura de IA",
-              "Despliegue de Flujos",
-              "Evolución Continua",
-            ].map((step, i) => (
+          <div className="absolute top-10 left-0 right-0 h-0.5 bg-border/30" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+            {steps.map((step, i) => (
               <div key={i} className="relative rounded-2xl p-0.5">
                 <GlowingEffect spread={30} glow proximity={60} inactiveZone={0.01} borderWidth={2} />
-                <div className="relative flex flex-col items-center text-center bg-card p-6 rounded-[14px] border border-border/40 h-full">
-                  <div className="w-12 h-12 rounded-full bg-accent-blue text-white flex items-center justify-center text-xl font-black mb-4 shadow-lg">
-                    {i + 1}
+                <div className="relative flex flex-col bg-card p-6 rounded-[14px] border border-border/40 h-full">
+                  <div className="w-12 h-12 rounded-full bg-accent-blue text-white flex items-center justify-center text-xl font-black mb-4 shadow-lg shrink-0">
+                    {step.num}
                   </div>
-                  <h4 className="text-sm font-black leading-tight text-foreground">{step}</h4>
+                  <h4 className="text-base font-black leading-tight text-foreground mb-2">{step.title}</h4>
+                  <p className="text-sm text-muted font-light leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -285,19 +299,19 @@ const MethodologySection = () => {
       ),
     },
     {
-      title: "¿Por qué no somos una consultora tradicional?",
+      title: "¿Por qué no somos una consultora?",
       content: (
         <div className="mt-12 grid grid-cols-2 gap-8">
           {[
             {
               label: "Consultoría Tradicional",
               bad: true,
-              points: ["Proyectos de 6+ meses", "Alto costo inicial", "Personalización compleja", "ROI incierto y tardío"],
+              points: ["Proyectos de 6+ meses", "Alto costo inicial", "Soluciones genéricas", "Retorno incierto y tardío"],
             },
             {
-              label: "IngentIA",
+              label: "Ingentia",
               bad: false,
-              points: ["Resultados en semanas", "Precio accesible", "Micro-productos preconfigurados", "ROI visible desde el mes 1"],
+              points: ["Resultados en semanas", "Inversión escalable", "Soluciones hechas a medida", "Retorno visible desde el primer mes"],
             },
           ].map((col, i) => (
             <div key={i} className={cn("p-8 rounded-3xl border", col.bad ? "border-red-500/30 bg-red-500/5" : "border-accent-blue/30 bg-accent-blue/5")}>
@@ -318,14 +332,14 @@ const MethodologySection = () => {
       ),
     },
     {
-      title: "Industrias complejas. Soluciones simples.",
+      title: "Cualquier industria, el mismo rigor.",
       content: (
         <div className="mt-12">
           <p className="text-xl md:text-2xl text-muted max-w-2xl mb-10 leading-tight">
             Si dependés de Excel para manejar tu operación, ya estás perdiendo tiempo y dinero.
           </p>
           <div className="flex flex-wrap gap-4">
-            {["Estudio Contable", "Industria Metalmecánica", "Distribuidora Logística", "Agencia de Marketing", "E-commerce", "Salud", "Agro", "Real Estate"].map((ind, i) => (
+            {["Estudio Contable", "Industria Metalmecánica", "Distribuidora Logística", "Agencia de Marketing", "Comercio Electrónico", "Salud", "Agro", "Inmobiliaria"].map((ind, i) => (
               <span key={i} className="px-8 py-4 bg-card rounded-full text-lg font-black border border-border/40 hover:border-accent-blue/60 transition-colors">
                 {ind}
               </span>
@@ -359,21 +373,21 @@ const MethodologySection = () => {
 // ─────────────────────────────────────────
 const ArchitectureSection = () => {
   return (
-    <section className="min-h-screen bg-background transition-colors duration-500 flex items-center justify-center overflow-hidden border-t border-border/40 py-20">
+    <section className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center overflow-hidden py-20">
       <div className="apple-container w-full">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <TextBlockAnimation blockColor="#3b82f6" duration={0.8}>
-            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight italic uppercase">
-              Arquitectura <br />
-              <span className="text-accent-blue">Tecnológica Invisible</span>
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight italic uppercase text-white">
+              Construimos lo que <br />
+              <span className="text-accent-blue">ninguna plataforma genérica puede darte.</span>
             </h2>
           </TextBlockAnimation>
 
           <div className="max-w-2xl mx-auto">
             <TextBlockAnimation blockColor="#ffffff" stagger={0.05} delay={0.4}>
-              <p className="text-xl md:text-3xl text-muted font-light leading-relaxed">
-                Construimos sobre herramientas personalizadas, no sobre plataformas rígidas.
-                Tu infraestructura técnica será tan sólida como tu empresa.
+              <p className="text-xl md:text-3xl text-neutral-400 font-light leading-relaxed">
+                Porque cada empresa tiene un proceso único.
+                Y ese proceso merece una solución única, construida por ingenieros que lo entienden.
               </p>
             </TextBlockAnimation>
           </div>
@@ -428,12 +442,12 @@ const CTASection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-balance text-white dark:text-black">
-            Deja de gestionar crisis. <br className="hidden md:block" />
-            <span className="text-accent-blue font-black">Empieza a liderar tu industria.</span>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-balance text-white">
+            Liberá tu tiempo. <br className="hidden md:block" />
+            <span className="text-accent-blue font-black">Hacé crecer tu negocio.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-neutral-400 dark:text-neutral-600 text-balance mx-auto max-w-2xl">
-            Si tu empresa depende de tareas manuales, ya estás perdiendo margen.
+          <p className="text-xl md:text-2xl text-neutral-400 text-balance mx-auto max-w-2xl">
+            Empezamos con una conversación de 30 minutos donde mapeamos juntos tu principal cuello de botella operativo.
           </p>
         </motion.div>
 
@@ -535,10 +549,10 @@ export default function Home() {
     <main className="transition-colors duration-500">
       <Header />
       <Hero />
-      <TransitionSection phrase="Automatizar el caos solo genera caos más rápido. Primero rediseñamos el proceso; luego lo hacemos invencible con IA." />
+      <TransitionSection phrase="Automatizar sin entender el proceso es accelerar en la dirección equivocada. Primero mapeamos; después construimos." />
       <ProblemSection />
       <ValuePropSection />
-      <TransitionSection phrase="Eliminar el desperdicio operativo es la mayor fuente de rentabilidad oculta de tu empresa." />
+      <TransitionSection phrase="Cada hora que tu equipo pierde en tareas administrativas es una hora que no se invierte en hacer crecer tu negocio." />
       <MethodologySection />
       <ArchitectureSection />
       <CTASection />
