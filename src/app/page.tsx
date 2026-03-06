@@ -22,31 +22,46 @@ import { CheckCircle2 } from "lucide-react";
 // ─────────────────────────────────────────
 function HeroScrollDemo() {
   return (
-    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 -mt-[10vh]">
-      <ContainerScroll
-        titleComponent={
-          <>
-            <h2 className="text-4xl font-black text-foreground text-balance uppercase tracking-widest">
-              Tu operación, <br />
-              <span className="text-4xl md:text-[6rem] font-black mt-1 leading-none text-accent-blue">
-                Bajo Control.
-              </span>
-            </h2>
-            <p className="text-lg md:text-xl text-muted font-light max-w-2xl mx-auto mt-4">
-              Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
-            </p>
-          </>
-        }
-      >
-        <Image
-          src={`/dashboard-new.png`}
-          alt="Panel de control operativo de Ingentia"
-          height={720}
-          width={1400}
-          className="mx-auto rounded-2xl object-cover h-full object-top border border-border/20 shadow-2xl"
-          draggable={false}
-        />
-      </ContainerScroll>
+    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 pb-24 pt-20">
+      <div className="apple-container text-center py-20 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-4xl md:text-6xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
+            Tu operación,
+          </h2>
+          <span className="text-5xl md:text-[8rem] font-[900] leading-none text-accent-blue block mb-8">
+            Bajo Control.
+          </span>
+          <p className="text-xl md:text-2xl text-muted font-light max-w-2xl mx-auto">
+            Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
+          </p>
+        </motion.div>
+      </div>
+      <div className="apple-container max-w-6xl mx-auto relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative rounded-xl md:rounded-[2rem] overflow-hidden shadow-2xl border border-border/20 bg-card p-2 md:p-4"
+        >
+          <div className="rounded-lg md:rounded-3xl overflow-hidden border border-border/10">
+            <Image
+              src={`/dashboard-new.png`}
+              alt="Panel de control operativo de Ingentia"
+              height={720}
+              width={1400}
+              className="w-full h-auto object-cover object-top"
+              draggable={false}
+              priority
+            />
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -425,7 +440,7 @@ const CTASection = () => {
 
   return (
     <section id="contacto" className="py-40 bg-foreground text-background transition-colors duration-500 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-800 dark:from-white dark:via-neutral-100 dark:to-neutral-200" />
+      <div className="absolute inset-0 bg-background dark:bg-foreground" />
 
       <div className="apple-container max-w-4xl relative z-10">
         <motion.div
@@ -435,11 +450,11 @@ const CTASection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-balance text-white">
-            Liberá tu tiempo. <br className="hidden md:block" />
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-balance">
+            <span className="text-foreground dark:text-white block mb-2">Liberá tu tiempo.</span>
             <span className="text-accent-blue font-black">Hacé crecer tu negocio.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-neutral-400 text-balance mx-auto max-w-2xl">
+          <p className="text-xl md:text-2xl text-muted-foreground dark:text-neutral-400 text-balance mx-auto max-w-2xl">
             Empezamos con una conversación de 30 minutos donde mapeamos juntos tu principal cuello de botella operativo.
           </p>
         </motion.div>
@@ -542,7 +557,7 @@ export default function Home() {
     <main className="transition-colors duration-500">
       <Header />
       <Hero />
-      <TransitionSection phrase="Automatizar sin entender el proceso es accelerar en la dirección equivocada. Primero mapeamos; después construimos." />
+      <TransitionSection phrase="Automatizar sin entender el proceso es acelerar en la dirección equivocada. Primero mapeamos; después construimos." />
       <ProblemSection />
       <ValuePropSection />
       <TransitionSection phrase="Cada hora que tu equipo pierde en tareas administrativas es una hora que no se invierte en hacer crecer tu negocio." />
