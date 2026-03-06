@@ -144,13 +144,13 @@ export function ConversationalAgent() {
 }
 
 /** Reusable button that opens the Kaizen agent */
-export function KaizenButton({ className }: { className?: string }) {
+export function KaizenButton({ className, children }: { className?: string, children?: React.ReactNode }) {
     const [open, setOpen] = React.useState(false);
 
     return (
         <>
             <button onClick={() => setOpen(true)} className={className}>
-                Hablar con un Ingeniero Virtual
+                {children || "Hablar con un Ingeniero Virtual"}
             </button>
             {open && <KaizenModal onClose={() => setOpen(false)} />}
         </>

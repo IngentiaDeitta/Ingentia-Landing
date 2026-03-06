@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Check, X } from "lucide-react";
+import { ArrowRight, Check, X, FileText, BarChart3, Bell } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SplineSceneBasic } from "@/components/ui/hero-demo";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
@@ -10,6 +10,10 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Header } from "@/components/ui/navbar";
 import { SplineScene } from "@/components/ui/splite";
 import Image from "next/image";
+import { TransitionSection } from "@/components/ui/transition-section";
+import TextReveal from "@/components/ui/text-reveal";
+import TextBlockAnimation from "@/components/ui/text-block-animation";
+import { Ripple } from "@/components/ui/material-design-3-ripple";
 
 // ─────────────────────────────────────────
 // Hero Scroll Demo (Dashboard)
@@ -20,9 +24,9 @@ function HeroScrollDemo() {
       <ContainerScroll
         titleComponent={
           <>
-            <h2 className="text-4xl font-semibold text-foreground">
+            <h2 className="text-4xl font-black text-foreground text-balance uppercase tracking-widest">
               Visualiza tu operación con <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none text-accent-blue">
+              <span className="text-4xl md:text-[6rem] font-black mt-1 leading-none text-accent-blue">
                 Control Total
               </span>
             </h2>
@@ -48,7 +52,7 @@ function HeroScrollDemo() {
 const Hero = () => {
   return (
     <>
-      <section className="relative w-full overflow-hidden">
+      <section id="hero" className="relative w-full overflow-hidden">
         <SplineSceneBasic />
       </section>
       <HeroScrollDemo />
@@ -59,132 +63,108 @@ const Hero = () => {
 // ─────────────────────────────────────────
 // Section 2: Problem
 // ─────────────────────────────────────────
-import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
-import {
-  FileText,
-  MousePointer2,
-  Globe,
-  Calendar,
-  Bell,
-  BarChart3,
-  PieChart,
-  Rocket
-} from "lucide-react";
 
 const ProblemSection = () => {
   const pains = [
     {
       Icon: BarChart3,
-      name: "Decisiones \"a ojo\"",
-      description: "La falta de datos centralizados nubla el crecimiento de tu empresa.",
-      href: "#contacto",
-      cta: "Ver solución",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />,
-      className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+      name: "Fuga de datos",
+      description: "15 planillas de Excel que no se hablan entre sí y generan caos informativo.",
+      color: "text-blue-500",
+      bg: "bg-blue-500/5 hover:bg-blue-500/10 border-blue-500/10",
+      className: "md:col-span-1 md:row-span-2 min-h-[300px]"
     },
     {
-      Icon: Calendar,
-      name: "Cotizaciones lentas",
-      description: "Clientes que esperan días para recibir un presupuesto.",
-      href: "#contacto",
-      cta: "Automatizar",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />,
-      className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
-    },
-    {
-      Icon: Rocket,
-      name: "Fugas de Stock",
-      description: "Inventario desactualizado = ventas perdidas y capital inmovilizado.",
-      href: "#contacto",
-      cta: "Optimizar",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />,
-      className: "lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2",
-    },
-    {
-      Icon: Globe,
-      name: "Dependencia del \"experto\"",
-      description: "Tu operación se frena cuando las personas clave no están disponibles.",
-      href: "#contacto",
-      cta: "Sistematizar",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent" />,
-      className: "lg:col-start-2 lg:col-end-4 lg:row-start-2 lg:row-end-3",
-    },
-    {
-      Icon: PieChart,
-      name: "Pérdida de Tiempo",
-      description: "Horas invertidas solo en saber cómo le va a tu empresa hoy.",
-      href: "#contacto",
-      cta: "Panel de control",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 to-transparent" />,
-      className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
-    },
-    {
-      Icon: FileText,
-      name: "Esclavos del Excel",
-      description: "Reportes manuales que nacen viejos y con errores humanos.",
-      href: "#contacto",
-      cta: "Eliminar Excel",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent" />,
-      className: "lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-4",
-    },
-    {
-      Icon: MousePointer2,
-      name: "Caos en WhatsApp",
-      description: "Seguimiento de clientes perdido en chats informales.",
-      href: "#contacto",
-      cta: "CRM Inteligente",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent" />,
-      className: "lg:col-start-3 lg:col-end-4 lg:row-start-3 lg:row-end-4",
+      Icon: BarChart3,
+      name: "Ceguera de gestión",
+      description: "Tomas decisiones \"a ojo\" por falta de datos reales y actualizados.",
+      color: "text-amber-500",
+      bg: "bg-amber-500/5 hover:bg-amber-500/10 border-amber-500/10",
+      className: "md:col-span-1 md:row-span-1"
     },
     {
       Icon: Bell,
-      name: "Carga Administrativa",
-      description: "Tareas repetitivas que consumen el margen de tu negocio.",
-      href: "#contacto",
-      cta: "Liberar equipo",
-      background: <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent" />,
-      className: "lg:col-start-1 lg:col-end-4 lg:row-start-4 lg:row-end-5",
+      name: "Desperdicio de talento",
+      description: "Tu equipo pierde el 40% del día en carga administrativa.",
+      color: "text-cyan-500",
+      bg: "bg-cyan-500/5 hover:bg-cyan-500/10 border-cyan-500/10",
+      className: "md:col-span-1 md:row-span-1"
     },
+    {
+      Icon: FileText,
+      name: "Deuda Operativa",
+      description: "No es falta de personal. Es falta de arquitectura sistémica para escalar.",
+      color: "text-rose-500",
+      bg: "bg-rose-500/5 hover:bg-rose-500/10 border-rose-500/10",
+      className: "md:col-span-2 md:row-span-1"
+    }
   ];
 
   return (
-    <section id="problema" className="py-40 bg-card transition-colors duration-500">
-      <div className="apple-container w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto"
-        >
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8 leading-[1.1] text-balance">
-            No necesitas más software.{" "}
-            <br className="hidden md:block" />
-            <span className="text-accent-blue">Necesitas resolver cuellos de botella.</span>
-          </h2>
-          <p className="text-xl md:text-2xl text-muted font-medium mb-16 leading-tight">
-            Estos son los dolores que frenan la operación de las pymes hoy:
-          </p>
+    <section id="problema" className="py-24 bg-background relative overflow-hidden">
+      <div className="apple-container">
+        <div className="max-w-3xl mb-16">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">
+              La ingeniería resuelve lo que el software no pudo.
+            </h2>
+            <p className="text-xl md:text-2xl text-muted font-light">
+              El 70% de las PyMEs industriales operan con procesos rotos, ocultos en planillas y trabajo manual repetitivo.
+            </p>
+          </motion.div>
+        </div>
 
-          <BentoGrid className="lg:grid-rows-4">
-            {pains.map((feature) => (
-              <BentoCard key={feature.name} {...feature} />
-            ))}
-          </BentoGrid>
-
-          <div className="pt-20 mt-20 border-t border-border/40 text-center">
-            <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground/40 italic text-balance">
-              "Cuando los procesos no están diseñados, las personas compensan."
-            </h3>
-          </div>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {pains.map((pain, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={cn(
+                "group relative overflow-hidden rounded-[2rem] border transition-all duration-300",
+                pain.bg,
+                pain.className
+              )}
+            >
+              <Ripple
+                className="h-full w-full"
+                color={pain.color}
+                opacity={0.15}
+              >
+                <div className="p-8 h-full flex flex-col justify-between relative z-10 pointer-events-none">
+                  <div>
+                    <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 border bg-white/50 dark:bg-black/50 shadow-sm", pain.bg)}>
+                      <pain.Icon className={cn("w-6 h-6", pain.color)} />
+                    </div>
+                    <h3 className="text-2xl font-black mb-3 text-foreground tracking-tight italic">
+                      {pain.name}
+                    </h3>
+                    <p className="text-muted text-lg font-light leading-relaxed">
+                      {pain.description}
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center gap-2 text-sm font-black text-foreground/50 border-t border-foreground/5 pt-4 group-hover:text-foreground group-hover:translate-x-1 transition-all duration-300">
+                    DIAGNÓSTICO TÉCNICO <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Ripple>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
 // ─────────────────────────────────────────
-// Section 3: Value Prop (Spline xOfaABcgXd)
+// Section 3: Value Prop
 // ─────────────────────────────────────────
 const ValuePropSection = () => {
   return (
@@ -210,16 +190,16 @@ const ValuePropSection = () => {
               <br />
               <span className="text-accent-blue drop-shadow-lg">Hacemos ingeniería de operaciones.</span>
             </h2>
-            <p className="text-xl text-foreground/70 max-w-lg leading-relaxed">
+            <p className="text-xl text-foreground font-light max-w-lg leading-relaxed mb-4">
               Ofrecemos automatizaciones que generan impacto directo sobre tus ganancias.
             </p>
           </motion.div>
 
           <div className="grid gap-6 pointer-events-auto">
             {[
-              { num: "01.", title: "Micro-productos", desc: "Soluciones hiper específicas adaptadas a tu operatoria. Sin proyectos eternos ni presupuestos inflados." },
-              { num: "02.", title: "Configuración flexible", desc: "Integración con tus herramientas actuales sin reemplazar todo tu sistema." },
-              { num: "03.", title: "Impacto medible", desc: "Más flujo de caja. Menos horas administrativas. Más velocidad operativa." },
+              { num: "01.", title: "Ingenieros, no solo coders", desc: "Entendemos costos, márgenes y logística. Hablamos tu idioma." },
+              { num: "02.", title: "Tecnología de Frontera", desc: "Implementamos agentes de IA que \"entienden\" tu documentación, no formularios rígidos." },
+              { num: "03.", title: "Sistemas a Medida", desc: "Creamos el guante que calza exacto en la mano de tu negocio." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -232,7 +212,7 @@ const ValuePropSection = () => {
                 <div className="flex items-start gap-6">
                   <div className="text-4xl font-black text-accent-blue opacity-50">{item.num}</div>
                   <div>
-                    <h3 className="text-2xl font-bold mb-2 group-hover:text-accent-blue transition-colors">{item.title}</h3>
+                    <h3 className="text-2xl font-black mb-2 group-hover:text-accent-blue transition-colors">{item.title}</h3>
                     <p className="text-foreground/70 text-base leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
@@ -248,90 +228,9 @@ const ValuePropSection = () => {
 // ─────────────────────────────────────────
 // Section 4: Micro-Products
 // ─────────────────────────────────────────
-const ProductsSection = () => {
-  const products = [
-    {
-      emoji: "💰",
-      title: "Agente de Cobranzas Inteligente",
-      pain: "Tus clientes pagan tarde y nadie hace seguimiento sistemático.",
-      solution: ["Recordatorios automáticos", "Secuencia inteligente", "Escalamiento humano cuando es necesario"],
-      impact: "Mejora flujo de caja desde el primer mes.",
-      color: "from-blue-500/20 to-blue-600/5",
-    },
-    {
-      emoji: "🧠",
-      title: "Filtro y Calificador de CVs",
-      pain: "Pierdes horas leyendo CVs irrelevantes.",
-      solution: ["Análisis automático de candidatos", "Ranking por afinidad al puesto", "Shortlist en minutos"],
-      impact: "Reduce hasta 60% el tiempo administrativo.",
-      color: "from-purple-500/20 to-purple-600/5",
-    },
-    {
-      emoji: "📄",
-      title: "Procesamiento Automático de Facturas",
-      pain: "Cargar datos manualmente genera errores y retrasos.",
-      solution: ["Lectura automática de documentos", "Borradores generados por IA", "Validación humana al final"],
-      impact: "Elimina el error humano en la carga de datos.",
-      color: "from-emerald-500/20 to-emerald-600/5",
-    },
-  ];
-
-  return (
-    <section id="productos" className="py-32 bg-background transition-colors duration-500">
-      <div className="apple-container">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-20"
-        >
-          <p className="text-accent-blue font-bold tracking-widest text-sm uppercase mb-4">Soluciones Especializadas</p>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-foreground text-balance">
-            Micro-productos listos <br className="hidden md:block" />
-            para tu operación.
-          </h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {products.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="relative rounded-3xl p-0.5"
-            >
-              <GlowingEffect spread={50} glow proximity={80} inactiveZone={0.01} borderWidth={2} />
-              <div className={cn("relative rounded-[22px] p-8 h-full border border-border/40 bg-card flex flex-col gap-6 bg-gradient-to-b", p.color)}>
-                <div className="text-5xl">{p.emoji}</div>
-                <div>
-                  <h3 className="text-xl font-black mb-3 text-foreground">{p.title}</h3>
-                  <p className="text-muted text-sm leading-relaxed mb-4">{p.pain}</p>
-                  <ul className="space-y-2">
-                    {p.solution.map((s, j) => (
-                      <li key={j} className="flex items-center gap-2 text-sm text-foreground/80">
-                        <Check className="w-4 h-4 text-accent-blue flex-shrink-0" />
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-auto pt-6 border-t border-border/30">
-                  <p className="text-accent-blue font-bold text-sm">⚡ {p.impact}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 // ─────────────────────────────────────────
-// Section 5: How We Work (Horizontal Scroll)
+// Section 5: Methodology
 // ─────────────────────────────────────────
 const MethodologySection = () => {
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -350,8 +249,8 @@ const MethodologySection = () => {
             { stat: "10x", label: "Escalar sin contratar" },
           ].map((s, i) => (
             <div key={i}>
-              <div className="text-5xl md:text-7xl font-bold text-accent-blue mb-2">{s.stat}</div>
-              <div className="text-xl text-muted font-medium">{s.label}</div>
+              <div className="text-5xl md:text-7xl font-black text-accent-blue mb-2">{s.stat}</div>
+              <div className="text-xl text-muted font-black uppercase tracking-widest">{s.label}</div>
             </div>
           ))}
         </div>
@@ -364,10 +263,10 @@ const MethodologySection = () => {
           <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-border/30 -translate-y-1/2" />
           <div className="grid grid-cols-4 gap-6 relative z-10">
             {[
-              "Relevamiento funcional",
-              "Análisis de oportunidades",
-              "Configuración de la solución",
-              "Implementación y medición",
+              "Auditoría de Procesos",
+              "Arquitectura de IA",
+              "Despliegue de Flujos",
+              "Evolución Continua",
             ].map((step, i) => (
               <div key={i} className="relative rounded-2xl p-0.5">
                 <GlowingEffect spread={30} glow proximity={60} inactiveZone={0.01} borderWidth={2} />
@@ -375,7 +274,7 @@ const MethodologySection = () => {
                   <div className="w-12 h-12 rounded-full bg-accent-blue text-white flex items-center justify-center text-xl font-black mb-4 shadow-lg">
                     {i + 1}
                   </div>
-                  <h4 className="text-sm font-bold leading-tight text-foreground">{step}</h4>
+                  <h4 className="text-sm font-black leading-tight text-foreground">{step}</h4>
                 </div>
               </div>
             ))}
@@ -424,8 +323,8 @@ const MethodologySection = () => {
             Si dependés de Excel para manejar tu operación, ya estás perdiendo tiempo y dinero.
           </p>
           <div className="flex flex-wrap gap-4">
-            {["Estudio Contable", "Agencia de Marketing", "Pyme Comercial", "E-commerce", "Logística", "Salud", "Agro", "Real Estate"].map((ind, i) => (
-              <span key={i} className="px-8 py-4 bg-card rounded-full text-lg font-bold border border-border/40 hover:border-accent-blue/60 transition-colors">
+            {["Estudio Contable", "Industria Metalmecánica", "Distribuidora Logística", "Agencia de Marketing", "E-commerce", "Salud", "Agro", "Real Estate"].map((ind, i) => (
+              <span key={i} className="px-8 py-4 bg-card rounded-full text-lg font-black border border-border/40 hover:border-accent-blue/60 transition-colors">
                 {ind}
               </span>
             ))}
@@ -454,21 +353,38 @@ const MethodologySection = () => {
 };
 
 // ─────────────────────────────────────────
-// Section 6: Trust / Social Proof
+// Section 6: Architecture Section
 // ─────────────────────────────────────────
-const TrustSection = () => {
+const ArchitectureSection = () => {
   return (
-    <section id="clientes" className="py-24 bg-card transition-colors duration-500 border-t border-b border-border/40">
-      <div className="apple-container text-center">
-        <h3 className="text-xl font-bold tracking-widest uppercase text-muted mb-12">
-          Empresas que ya automatizaron su operación
-        </h3>
-        <div className="flex flex-wrap justify-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          {["SAMSUNG", "MERCADO LIBRE", "GLOBANT", "Ualá"].map((logo, i) => (
-            <div key={i} className="text-2xl md:text-3xl font-black text-foreground/80 tracking-tighter">
-              {logo}
-            </div>
-          ))}
+    <section className="min-h-screen bg-background transition-colors duration-500 flex items-center justify-center overflow-hidden border-t border-border/40 py-20">
+      <div className="apple-container w-full">
+        <div className="max-w-4xl mx-auto text-center space-y-12">
+          <TextBlockAnimation blockColor="#3b82f6" duration={0.8}>
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight italic uppercase">
+              Arquitectura <br />
+              <span className="text-accent-blue">Tecnológica Invisible</span>
+            </h2>
+          </TextBlockAnimation>
+
+          <div className="max-w-2xl mx-auto">
+            <TextBlockAnimation blockColor="#ffffff" stagger={0.05} delay={0.4}>
+              <p className="text-xl md:text-3xl text-muted font-light leading-relaxed">
+                Construimos sobre herramientas personalizadas, no sobre plataformas rígidas.
+                Tu infraestructura técnica será tan sólida como tu empresa.
+              </p>
+            </TextBlockAnimation>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="pt-12"
+          >
+            <div className="w-1 h-20 bg-gradient-to-b from-accent-blue to-transparent mx-auto rounded-full" />
+          </motion.div>
         </div>
       </div>
     </section>
@@ -481,7 +397,6 @@ const TrustSection = () => {
 const CTASection = () => {
   return (
     <section id="contacto" className="py-40 bg-foreground text-background transition-colors duration-500 relative overflow-hidden">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-800 dark:from-white dark:via-neutral-100 dark:to-neutral-200" />
 
       <div className="apple-container max-w-4xl relative z-10">
@@ -493,12 +408,11 @@ const CTASection = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-balance text-white dark:text-black">
-            Si tu empresa depende de tareas manuales,{" "}
-            <br className="hidden md:block" />
-            <span className="text-accent-blue">ya estás perdiendo margen.</span>
+            Deja de gestionar crisis. <br className="hidden md:block" />
+            <span className="text-accent-blue font-black">Empieza a liderar tu industria.</span>
           </h2>
           <p className="text-xl md:text-2xl text-neutral-400 dark:text-neutral-600 text-balance mx-auto max-w-2xl">
-            Dejanos tus datos y un ingeniero de procesos va a evaluar el potencial de automatización de tu empresa.
+            Si tu empresa depende de tareas manuales, ya estás perdiendo margen.
           </p>
         </motion.div>
 
@@ -521,9 +435,9 @@ const CTASection = () => {
               type="submit"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-accent-blue text-white px-10 py-6 text-xl font-bold rounded-full hover:bg-blue-400 transition-all shadow-xl mt-8 flex items-center justify-center gap-3"
+              className="bg-accent-blue text-white px-10 py-6 text-xl font-black rounded-full hover:bg-blue-400 transition-all shadow-xl mt-8 flex items-center justify-center gap-3"
             >
-              Agenda tu Demo
+              ¡Solicitar Consultoría Estratégica!
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </motion.form>
@@ -542,9 +456,9 @@ const Footer = () => {
       <div className="apple-container flex flex-col items-center">
         <div className="flex items-center justify-center gap-2 mb-8 group cursor-pointer">
           <div className="w-1.5 h-5 bg-foreground group-hover:bg-accent-blue transition-colors rounded-sm" />
-          <span className="text-xl font-bold tracking-tight">ingentia</span>
+          <span className="text-xl font-black tracking-tight">ingentia</span>
         </div>
-        <div className="flex gap-6 mb-12 text-sm font-medium text-muted">
+        <div className="flex gap-6 mb-12 text-sm font-light text-muted uppercase tracking-widest">
           <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
           <a href="#" className="hover:text-foreground transition-colors">Twitter</a>
           <a href="#" className="hover:text-foreground transition-colors">Email</a>
@@ -560,24 +474,17 @@ const Footer = () => {
 // ─────────────────────────────────────────
 // Root
 // ─────────────────────────────────────────
-
 export default function Home() {
-  const navItems = [
-    { name: "Problema", link: "#problema" },
-    { name: "Soluciones", link: "#valor" },
-    { name: "Productos", link: "#productos" },
-    { name: "Método", link: "#metodo" },
-    { name: "Contacto", link: "#contacto" },
-  ];
-
   return (
     <main className="transition-colors duration-500">
       <Header />
       <Hero />
+      <TransitionSection phrase="Automatizar el caos solo genera caos más rápido. Primero rediseñamos el proceso; luego lo hacemos invencible con IA." />
       <ProblemSection />
       <ValuePropSection />
-      <ProductsSection />
+      <TransitionSection phrase="Eliminar el desperdicio operativo es la mayor fuente de rentabilidad oculta de tu empresa." />
       <MethodologySection />
+      <ArchitectureSection />
       <CTASection />
       <Footer />
     </main>

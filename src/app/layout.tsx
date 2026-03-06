@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Nunito, Noto_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
+  weight: ["300", "400", "700"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const noto_sans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin"],
+  weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased selection:bg-[#4D387A] selection:text-white`}
+        className={`${nunito.variable} ${noto_sans.variable} antialiased selection:bg-[#4D387A] selection:text-white`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <SmoothScrolling>

@@ -37,20 +37,15 @@ export function SplineSceneBasic() {
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
                         <h1 className="text-[32px] md:text-[48px] lg:text-[60px] font-light leading-[1.05] tracking-tight mb-4 text-white">
-                            No desarrollamos software.
+                            Tu PyME no necesita más software.
                             <br />
-                            <span className="font-bold text-accent-blue inline-block mt-1">Hacemos ingeniería de operaciones.</span>
+                            <span className="font-bold text-accent-blue inline-block mt-1">Necesita Ingeniería.</span>
                         </h1>
 
-                        <div className="space-y-2 mb-6">
-                            <div className="flex items-center gap-3 text-base md:text-lg text-neutral-300 font-medium">
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent-blue" />
-                                Velocidad de implementación
-                            </div>
-                            <div className="flex items-center gap-3 text-base md:text-lg text-neutral-300 font-medium">
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent-blue" />
-                                Impacto instantáneo sobre la operación
-                            </div>
+                        <div className="space-y-2 mb-6 text-balance max-w-xl">
+                            <p className="text-lg md:text-xl text-neutral-300 font-light leading-relaxed">
+                                De procesos rotos a sistemas inteligentes. Optimizamos tu operación con arquitecturas de IA diseñadas para escalar, no para parchear.
+                            </p>
                         </div>
 
                         <div className="flex items-start mb-10">
@@ -68,7 +63,7 @@ export function SplineSceneBasic() {
                                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                                 className="flex items-center justify-center gap-2.5 bg-accent-blue text-white py-4 px-10 rounded-full text-base font-bold border-2 border-white/10 shadow-2xl cursor-pointer"
                             >
-                                Solicita tu Demo
+                                Agendar Diagnóstico de Eficiencia
                                 <ArrowRight className="w-5 h-5" />
                             </motion.a>
                         </div>

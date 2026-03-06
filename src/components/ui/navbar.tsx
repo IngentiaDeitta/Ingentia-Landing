@@ -1,10 +1,11 @@
 'use client'
 import Link from 'next/link'
-import { Equal, X } from 'lucide-react'
+import { Equal, X, Phone } from 'lucide-react'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { KaizenButton } from '@/components/ui/conversational-agent'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const menuItems = [
     { name: 'Problema', href: '#problema' },
@@ -25,6 +26,11 @@ export const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    const scrollToTop = (e: React.MouseEvent) => {
+        e.preventDefault()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
     return (
         <header>
             <nav
@@ -34,7 +40,8 @@ export const Header = () => {
                     <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 py-2">
                         <div className="flex w-full justify-between lg:w-auto">
                             <Link
-                                href="/"
+                                href="#hero"
+                                onClick={scrollToTop}
                                 aria-label="home"
                                 className="flex gap-2 items-center">
                                 <div className="relative h-10 w-44">
@@ -80,17 +87,43 @@ export const Header = () => {
                                             <Link
                                                 href={item.href}
                                                 onClick={() => setMenuState(false)}
-                                                className="text-white/90 hover:text-white block duration-150 font-medium">
+                                                className="text-white/90 hover:text-white block duration-150 font-light">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit">
-                                <KaizenButton
-                                    className="flex items-center justify-center gap-2 text-white bg-accent-blue hover:bg-blue-600 text-sm font-semibold px-6 py-3 rounded-full transition-colors shadow-lg shadow-blue-900/30 whitespace-nowrap cursor-pointer"
-                                />
+                            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-2 sm:space-y-0 md:w-fit items-center">
+                                <AnimatePresence mode="wait">
+                                    {!isScrolled ? (
+                                        <motion.div
+                                            key="full-cta"
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.9 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <KaizenButton
+                                                className="flex items-center justify-center gap-2 text-white bg-accent-blue hover:bg-blue-600 text-sm font-black px-6 py-3 rounded-full transition-colors shadow-lg shadow-blue-900/30 whitespace-nowrap cursor-pointer"
+                                            />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="phone-cta"
+                                            initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
+                                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                                            exit={{ opacity: 0, scale: 0.5, rotate: 45 }}
+                                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                        >
+                                            <KaizenButton
+                                                className="flex items-center justify-center size-10 text-white bg-accent-blue hover:bg-blue-600 rounded-full transition-colors shadow-lg shadow-blue-900/30 cursor-pointer"
+                                            >
+                                                <Phone className="size-5 fill-white" />
+                                            </KaizenButton>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         </div>
                     </div>
