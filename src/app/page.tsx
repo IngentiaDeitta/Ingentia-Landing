@@ -26,7 +26,7 @@ function HeroScrollDemo() {
       <ContainerScroll
         titleComponent={
           <>
-            <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-black text-black dark:text-white leading-tight mb-8 px-4" style={{ fontFamily: "var(--font-display)" }}>
+            <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-black !text-black leading-tight mb-8 px-4" style={{ fontFamily: "var(--font-display)" }}>
               Toma el control total de tu operación
             </h1>
           </>
