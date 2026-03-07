@@ -59,6 +59,7 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 
   h1,
@@ -68,22 +69,10 @@
   h5,
   h6 {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 900;
+    /* Noto Sans Black */
+    letter-spacing: -0.04em;
   }
-
-  transition: background-color 0.5s ease,
-  color 0.5s ease;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 900;
-  /* Noto Sans Black */
-  letter-spacing: -0.04em;
-}
 }
 
 .bg-glass {
