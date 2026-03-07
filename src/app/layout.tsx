@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} ${noto_sans.variable} antialiased selection:bg-[#4D387A] selection:text-white`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <SmoothScrolling>
             {children}
           </SmoothScrolling>
