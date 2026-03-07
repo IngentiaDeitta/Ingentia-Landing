@@ -22,30 +22,26 @@ import { CheckCircle2 } from "lucide-react";
 // ─────────────────────────────────────────
 function HeroScrollDemo() {
   return (
-    <div className="flex flex-col overflow-hidden bg-background transition-colors duration-500 pb-[100px] pt-[50px]">
+    <div className="flex flex-col overflow-hidden pb-[100px] pt-[200px]">
       <ContainerScroll
         titleComponent={
           <>
-            <h2 className="text-2xl md:text-4xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
-              Tu operación,
-            </h2>
-            <div className="text-5xl md:text-[6rem] font-[900] leading-[1.1] text-accent-blue block mb-8" style={{ fontFamily: "var(--font-display)" }}>
-              Bajo Control.
-            </div>
-            <p className="text-xl md:text-2xl text-muted font-light max-w-2xl mx-auto">
-              Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
-            </p>
+            <h1 className="text-4xl font-semibold text-black dark:text-white">
+              Unleash the power of <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+                Scroll Animations
+              </span>
+            </h1>
           </>
         }
       >
         <Image
           src={`/dashboard-new.png`}
-          alt="Panel de control operativo de Ingentia"
+          alt="hero"
           height={720}
           width={1400}
           className="mx-auto rounded-2xl object-cover h-full object-left-top"
           draggable={false}
-          priority
         />
       </ContainerScroll>
     </div>
