@@ -26,12 +26,12 @@ function HeroScrollDemo() {
       <ContainerScroll
         titleComponent={
           <>
-            <h2 className="text-4xl md:text-6xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
+            <h2 className="text-2xl md:text-4xl font-black text-foreground text-balance uppercase tracking-widest mb-4">
               Tu operación,
             </h2>
-            <span className="text-5xl md:text-[8rem] font-[900] leading-none text-accent-blue block mb-8">
+            <div className="text-5xl md:text-[6rem] font-[900] leading-[1.1] text-accent-blue block mb-8" style={{ fontFamily: "var(--font-display)" }}>
               Bajo Control.
-            </span>
+            </div>
             <p className="text-xl md:text-2xl text-muted font-light max-w-2xl mx-auto">
               Visualizá en tiempo real cada proceso de tu empresa. Sin planillas. Sin caos.
             </p>
@@ -371,8 +371,8 @@ const ArchitectureSection = () => {
       <div className="apple-container w-full">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <TextBlockAnimation blockColor="#3b82f6" duration={0.8}>
-            <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight italic uppercase text-white">
-              Construimos lo que <br />
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] italic uppercase text-white pb-2">
+              Construimos lo que <br className="hidden md:block" />
               <span className="text-accent-blue">ninguna plataforma genérica puede darte.</span>
             </h2>
           </TextBlockAnimation>
